@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Handover Technology in Mobile Networks — 2026 Research Report</title>
+<style>
+  :root{
+    --bg:#0b1020;--panel:#141b30;--panel2:#1b2340;--ink:#e8ecf6;--muted:#9aa6c4;
+    --line:#2a3355;--accent:#5b8cff;--accent2:#42d4b5;--accent3:#f4a63b;--accent4:#e26d8e;
+    --good:#42d4b5;--warn:#f4a63b;--chip:#233056;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:linear-gradient(180deg,#0b1020,#0d1428 40%,#0b1020);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.6;font-size:16px}
+  a{color:var(--accent);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 22px 80px}
+  header.hero{padding:56px 22px 40px;background:radial-gradient(1200px 400px at 20% -10%,rgba(91,140,255,.22),transparent),
+    radial-gradient(900px 400px at 90% 0%,rgba(66,212,181,.14),transparent);border-bottom:1px solid var(--line)}
+  .hero-inner{max-width:1080px;margin:0 auto}
+  .kicker{display:inline-block;letter-spacing:.14em;text-transform:uppercase;font-size:12px;color:var(--accent2);
+    border:1px solid var(--line);padding:5px 12px;border-radius:999px;background:rgba(66,212,181,.06)}
+  h1{font-size:38px;line-height:1.15;margin:16px 0 10px;font-weight:750;letter-spacing:-.5px}
+  h1 span{color:var(--accent)}
+  .sub{color:var(--muted);font-size:17px;max-width:760px}
+  .meta{margin-top:20px;color:var(--muted);font-size:13px;display:flex;gap:18px;flex-wrap:wrap}
+  .meta b{color:var(--ink);font-weight:600}
+  nav.toc{position:sticky;top:0;z-index:20;background:rgba(11,16,32,.82);backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);padding:12px 22px}
+  nav.toc ul{max-width:1080px;margin:0 auto;padding:0;list-style:none;display:flex;gap:8px;flex-wrap:wrap;font-size:13px}
+  nav.toc a{color:var(--muted);padding:6px 11px;border-radius:8px;border:1px solid transparent}
+  nav.toc a:hover{color:var(--ink);background:var(--chip);text-decoration:none;border-color:var(--line)}
+  section{margin-top:48px;scroll-margin-top:64px}
+  h2{font-size:26px;margin:0 0 6px;font-weight:700;letter-spacing:-.3px;display:flex;align-items:center;gap:12px}
+  h2 .num{font-size:14px;color:var(--accent2);border:1px solid var(--line);border-radius:8px;padding:3px 9px;background:var(--panel)}
+  h3{font-size:19px;margin:26px 0 8px;color:#fff}
+  .lead{color:var(--muted);font-size:16px;margin:6px 0 18px;max-width:840px}
+  p{margin:12px 0}
+  .card{background:linear-gradient(180deg,var(--panel),var(--panel2));border:1px solid var(--line);
+    border-radius:14px;padding:20px 22px;margin:16px 0}
+  .grid{display:grid;gap:16px}
+  .g2{grid-template-columns:1fr 1fr}
+  .g3{grid-template-columns:repeat(3,1fr)}
+  @media(max-width:820px){.g2,.g3{grid-template-columns:1fr}h1{font-size:30px}}
+  .stat{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px}
+  .stat .big{font-size:30px;font-weight:750;letter-spacing:-.5px;color:#fff}
+  .stat .big.tealed{color:var(--accent2)}
+  .stat .lbl{color:var(--muted);font-size:13px;margin-top:4px}
+  table{width:100%;border-collapse:collapse;margin:14px 0;font-size:14.5px;overflow:hidden;border-radius:12px}
+  thead th{background:var(--panel2);color:#dfe6fb;text-align:left;padding:11px 13px;font-weight:600;
+    border-bottom:1px solid var(--line);font-size:13px;letter-spacing:.02em}
+  tbody td{padding:11px 13px;border-bottom:1px solid var(--line);vertical-align:top;color:#d3dbf0}
+  tbody tr:nth-child(even){background:rgba(255,255,255,.02)}
+  tbody tr:hover{background:rgba(91,140,255,.07)}
+  .tag{display:inline-block;font-size:11.5px;padding:2px 9px;border-radius:999px;border:1px solid var(--line);
+    background:var(--chip);color:#c5d0ef;white-space:nowrap}
+  .tag.g{color:#0c1a15;background:var(--accent2);border-color:var(--accent2)}
+  .tag.o{color:#231603;background:var(--accent3);border-color:var(--accent3)}
+  .tag.b{color:#eaf0ff;background:rgba(91,140,255,.18);border-color:var(--accent)}
+  ul.clean{margin:10px 0;padding-left:20px}
+  ul.clean li{margin:7px 0}
+  .callout{border-left:3px solid var(--accent);background:rgba(91,140,255,.07);padding:12px 16px;border-radius:0 10px 10px 0;margin:14px 0}
+  .callout.teal{border-left-color:var(--accent2);background:rgba(66,212,181,.07)}
+  .callout.amber{border-left-color:var(--accent3);background:rgba(244,166,59,.07)}
+  .ref-num{display:inline-flex;align-items:center;justify-content:center;min-width:22px;height:22px;font-size:12px;
+    background:var(--chip);border:1px solid var(--line);border-radius:6px;color:var(--accent2);margin-right:8px;font-weight:600}
+  ol.refs{list-style:none;counter-reset:r;padding:0}
+  ol.refs li{counter-increment:r;padding:10px 0;border-bottom:1px solid var(--line);display:flex;gap:12px;font-size:14px}
+  ol.refs li::before{content:counter(r);min-width:26px;height:26px;display:inline-flex;align-items:center;justify-content:center;
+    background:var(--panel2);border:1px solid var(--line);border-radius:7px;color:var(--accent2);font-size:12.5px;font-weight:600}
+  .refmeta{color:var(--muted);font-size:12.5px}
+  /* timeline */
+  .tl{position:relative;margin:18px 0 4px;padding-left:26px}
+  .tl::before{content:"";position:absolute;left:8px;top:4px;bottom:4px;width:2px;background:var(--line)}
+  .tl-item{position:relative;margin:0 0 18px}
+  .tl-item::before{content:"";position:absolute;left:-22px;top:5px;width:12px;height:12px;border-radius:50%;
+    background:var(--accent);box-shadow:0 0 0 4px rgba(91,140,255,.15)}
+  .tl-item.done::before{background:var(--accent2);box-shadow:0 0 0 4px rgba(66,212,181,.15)}
+  .tl-item.future::before{background:var(--accent3);box-shadow:0 0 0 4px rgba(244,166,59,.15)}
+  .tl-rel{font-weight:700;color:#fff}
+  .tl-yr{font-size:12px;color:var(--muted);margin-left:8px}
+  /* bar chart */
+  .bars{margin:8px 0}
+  .bar-row{display:grid;grid-template-columns:130px 1fr 70px;align-items:center;gap:10px;margin:8px 0;font-size:13.5px}
+  .bar-track{background:var(--panel);border:1px solid var(--line);border-radius:8px;height:26px;overflow:hidden;position:relative}
+  .bar-fill{height:100%;border-radius:0;display:flex;align-items:center}
+  .bar-lbl{color:var(--muted)}
+  .bar-val{text-align:right;color:#fff;font-weight:600}
+  .legend{display:flex;gap:16px;flex-wrap:wrap;font-size:12.5px;color:var(--muted);margin-top:10px}
+  .legend span{display:inline-flex;align-items:center;gap:6px}
+  .dot{width:11px;height:11px;border-radius:3px;display:inline-block}
+  footer{margin-top:60px;padding-top:24px;border-top:1px solid var(--line);color:var(--muted);font-size:13px}
+  .disclaimer{font-size:12.5px;color:var(--muted);background:var(--panel);border:1px dashed var(--line);border-radius:10px;padding:14px 16px;margin-top:22px}
+  sup a{font-size:11px;color:var(--accent2);padding:0 2px}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <span class="kicker">Technology Research Report</span>
+    <h1>AI-Driven <span>Handover</span> in Mobile Networks</h1>
+    <p class="sub">The state of AI/ML for mobility management and handover in 5G-Advanced and 6G — standardization, vendor progress, technical architectures, measured performance, academic literature, and the patent landscape.</p>
+    <div class="meta">
+      <span><b>Scope:</b> Cellular AI/ML handover (3GPP / O-RAN)</span>
+      <span><b>Compiled:</b> July 2026</span>
+      <span><b>Focus:</b> Rel-18 / Rel-19 &rarr; 6G</span>
+    </div>
+  </div>
+</header>
+
+<nav class="toc">
+  <ul>
+    <li><a href="#exec">Executive Summary</a></li>
+    <li><a href="#background">Background</a></li>
+    <li><a href="#standards">Standardization</a></li>
+    <li><a href="#solutions">Technical Solutions</a></li>
+    <li><a href="#vendors">Vendor Progress</a></li>
+    <li><a href="#performance">Performance</a></li>
+    <li><a href="#papers">Papers</a></li>
+    <li><a href="#patents">Patents</a></li>
+    <li><a href="#outlook">Outlook</a></li>
+    <li><a href="#refs">References</a></li>
+  </ul>
+</nav>
+
+<div class="wrap">
+
+<!-- ============ EXEC ============ -->
+<section id="exec">
+  <h2><span class="num">01</span> Executive Summary</h2>
+  <p class="lead">Handover — moving an active connection from one cell/beam to another as a device moves — is being reshaped by two convergent forces: <b>lower-layer (L1/L2) triggered mobility (LTM)</b> that slashes interruption time, and <b>AI/ML</b> that turns handover from a reactive, threshold-based decision into a predictive, proactive one.</p>
+
+  <div class="grid g3">
+    <div class="stat"><div class="big tealed">~0&nbsp;ms</div><div class="lbl">Target handover interruption for LTM/6G ("near-zero"), vs. up to 90 ms for legacy L3 handover <sup><a href="#refs">[1][3]</a></sup></div></div>
+    <div class="stat"><div class="big">&gt;4&times;</div><div class="lbl">Reduction in handover count reported by DDQN reinforcement-learning handover vs. baseline in simulation <sup><a href="#refs">[9]</a></sup></div></div>
+    <div class="stat"><div class="big">Rel-18 &rarr; 19</div><div class="lbl">3GPP: LTM normative in Rel-18 (2023); AI/ML mobility &amp; inter-gNB / conditional LTM in Rel-19 <sup><a href="#refs">[2][4][5]</a></sup></div></div>
+  </div>
+
+  <div class="callout teal">
+    <b>Key takeaway.</b> Standardized "AI handover" today is really two tracks running in parallel. (1) <b>Structural low-latency handover</b> (LTM) is fully specified and being commercialized — AI is not required for it but is the roadmap. (2) <b>AI/ML mobility optimization</b> (measurement/trajectory prediction, RL-based parameter tuning, proactive target selection) is partly standardized (3GPP TR 37.817 framework, Rel-19 study/normative items) and heavily active in research, vendor labs, O-RAN RIC apps, and patents — with 6G positioned as the point where prediction becomes native.
+  </div>
+</section>
+
+<!-- ============ BACKGROUND ============ -->
+<section id="background">
+  <h2><span class="num">02</span> Background: Why Handover Needs AI</h2>
+  <p>In legacy 5G NR (Rel-15) mobility, the UE reports Layer-3 filtered measurements (RSRP/RSRQ/SINR) of serving and neighbor cells; when a configured event (e.g., A3) fires, the network issues an RRC reconfiguration to hand the UE to a target cell. This <b>L3 handover</b> is robust but slow: reconfiguration and random access cause a connection interruption that can reach <b>50–90 ms</b>, with significant signaling overhead. That is unacceptable for latency-critical XR, cloud gaming, remote control, and industrial automation. <sup><a href="#refs">[1]</a></sup></p>
+
+  <p>Two problems compound this in dense and high-frequency (mmWave) deployments: <b>ping-pong</b> (repeated back-and-forth handovers wasting signaling and hurting throughput) and <b>handover failure / radio-link failure</b> from mistimed or late handovers. Fixed thresholds and hand-tuned hysteresis/time-to-trigger cannot adapt to the huge diversity of speeds, trajectories, and load conditions. This is precisely the regime where machine learning — predicting signal evolution, UE trajectory, and load — offers gains. <sup><a href="#refs">[8][12]</a></sup></p>
+
+  <div class="grid g2">
+    <div class="card"><h3 style="margin-top:0">The two complementary levers</h3>
+      <ul class="clean">
+        <li><b>Latency lever — LTM:</b> Move the handover trigger and execution down to L1/L2 with pre-configured candidate cells and pre-synchronization, cutting interruption to ~20–30 ms (and toward zero). Structural, deterministic.</li>
+        <li><b>Intelligence lever — AI/ML:</b> Predict <i>when</i> and <i>where</i> to hand over (measurement/beam/trajectory prediction), and <i>how</i> to set parameters (RL tuning), reducing failures and ping-pong. Data-driven, adaptive.</li>
+      </ul>
+    </div>
+    <div class="card"><h3 style="margin-top:0">Core KPIs handover research targets</h3>
+      <ul class="clean">
+        <li><b>Handover interruption time</b> (ms of data-plane outage)</li>
+        <li><b>Handover failure rate (HOF)</b> &amp; radio-link failures</li>
+        <li><b>Ping-pong rate</b> (unnecessary handovers)</li>
+        <li><b>Signaling overhead</b> per successful handover</li>
+        <li><b>Throughput / spectral efficiency</b> during mobility</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ STANDARDS ============ -->
+<section id="standards">
+  <h2><span class="num">03</span> Standardization Landscape (3GPP &amp; O-RAN)</h2>
+  <p class="lead">Handover evolution in 3GPP has proceeded release by release. AI/ML entered as a formal RAN framework in Rel-18 and expands in Rel-19, alongside the LTM low-latency handover machinery.</p>
+
+  <div class="card">
+    <h3 style="margin-top:0">3GPP mobility &amp; AI/ML release timeline</h3>
+    <div class="tl">
+      <div class="tl-item done"><span class="tl-rel">Rel-16 — CHO &amp; DAPS</span><span class="tl-yr">2020</span>
+        <div class="bar-lbl">Conditional Handover (CHO): UE pre-receives target config and executes when a condition is met, decoupling decision from execution to cut failures. DAPS (Dual Active Protocol Stack) keeps the source link until the target is ready, for near-0 ms interruption in specific cases. <sup><a href="#refs">[8]</a></sup></div></div>
+      <div class="tl-item done"><span class="tl-rel">Rel-17 — SON/MDT &amp; mobility enhancements</span><span class="tl-yr">2022</span>
+        <div class="bar-lbl">Enhanced data collection (MDT), SON improvements, and mobility for higher frequencies — laying the data foundation for later ML.</div></div>
+      <div class="tl-item done"><span class="tl-rel">Rel-18 — LTM + AI/ML for NG-RAN (5G-Advanced)</span><span class="tl-yr">Dec 2023</span>
+        <div class="bar-lbl"><b>L1/L2-Triggered Mobility (LTM)</b> standardized: candidate-cell preparation, pre-synchronization, L1-triggered cell switch → ~20–30 ms interruption. In parallel, <b>AI/ML for NG-RAN</b> normative work (built on <b>TR 37.817</b> functional framework) covering three use cases: <b>Mobility Optimization</b>, <b>Load Balancing</b>, and <b>Network Energy Saving</b>. <sup><a href="#refs">[1][2][4]</a></sup></div></div>
+      <div class="tl-item"><span class="tl-rel">Rel-19 — Inter-gNB / Conditional LTM &amp; AI/ML expansion</span><span class="tl-yr">2024–2025</span>
+        <div class="bar-lbl"><b>Inter-gNB LTM</b> (fast, seamless handover across base stations), <b>Conditional LTM (CLTM)</b> (LTM's low latency + CHO's resilience), and <b>L1 measurement enhancements</b> (event-triggered L1 reporting, CSI-RS based measurement). AI/ML for NG-RAN extends to network slicing, CCO, and <b>mobility optimization for NR-DC</b>. AI/ML for the air interface (RAN1) advances beam management, CSI, and positioning prediction. <sup><a href="#refs">[3][5][6]</a></sup></div></div>
+      <div class="tl-item future"><span class="tl-rel">Rel-20 &rarr; 6G — AI-native mobility</span><span class="tl-yr">2026+</span>
+        <div class="bar-lbl">Predictive, "zero-latency" and "invisible" handover; AI anticipates user movement to hand over before degradation; unified terrestrial / non-terrestrial (NTN) mobility. Rel-20 studies frame the 6G on-ramp. <sup><a href="#refs">[3][6]</a></sup></div></div>
+    </div>
+  </div>
+
+  <div class="grid g2">
+    <div class="card"><h3 style="margin-top:0">Key 3GPP specifications &amp; anchors</h3>
+      <table>
+        <thead><tr><th>Spec / item</th><th>Relevance</th></tr></thead>
+        <tbody>
+          <tr><td><b>TR 37.817</b></td><td>Functional framework for RAN intelligence: data collection, model training, inference — the backbone for AI mobility, load balancing, energy saving <sup><a href="#refs">[2]</a></sup></td></tr>
+          <tr><td><b>TS 38.331</b></td><td>RRC — carries LTM/CHO configuration and (in patents/proposals) ML configuration &amp; new measurement events</td></tr>
+          <tr><td><b>TS 38.300 / 38.321</b></td><td>NR overall architecture &amp; MAC — LTM cell-switch command lives at MAC CE level</td></tr>
+          <tr><td><b>Rel-18/19 WIDs</b></td><td>LTM (intra-/inter-gNB), AI/ML for NG-RAN, AI/ML for NR air interface (RAN1) <sup><a href="#refs">[4][5][6]</a></sup></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card"><h3 style="margin-top:0">O-RAN Alliance: where AI handover runs</h3>
+      <p>O-RAN's <b>RAN Intelligent Controller (RIC)</b> gives AI handover a deployment home outside the 3GPP box:</p>
+      <ul class="clean">
+        <li><b>Non-RT RIC + rApps</b> (&gt;1 s): policy/parameter optimization — e.g., mobility robustness optimization, handover parameter tuning via analytics/ML.</li>
+        <li><b>Near-RT RIC + xApps</b> (10 ms–1 s): closed-loop control of handover/mobility decisions per UE via the E2 interface.</li>
+      </ul>
+      <p>Recent work explores AI-driven multi-modal adaptive handover control as O-RAN apps. <sup><a href="#refs">[16][17]</a></sup></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SOLUTIONS ============ -->
+<section id="solutions">
+  <h2><span class="num">04</span> Technical Solutions &amp; Architectures</h2>
+  <p class="lead">AI handover solutions span the protocol stack. They fall into structural low-latency mechanisms, prediction models, and learning-based control.</p>
+
+  <h3>4.1 L1/L2-Triggered Mobility (LTM) — the low-latency substrate</h3>
+  <p>LTM executes handover in three phases <sup><a href="#refs">[1]</a></sup>:</p>
+  <div class="grid g3">
+    <div class="card" style="margin:8px 0"><span class="tag b">Phase 1</span><h3 style="margin:8px 0 4px">Preparation</h3><p style="margin:0;color:var(--muted);font-size:14px">Network configures candidate target cells; UE sends L1 measurement reports for those cells.</p></div>
+    <div class="card" style="margin:8px 0"><span class="tag b">Phase 2</span><h3 style="margin:8px 0 4px">Pre-synchronization</h3><p style="margin:0;color:var(--muted);font-size:14px">While still on the source, UE syncs to target DL and does RACH so the target has uplink timing (TA) ready.</p></div>
+    <div class="card" style="margin:8px 0"><span class="tag b">Phase 3</span><h3 style="margin:8px 0 4px">Execution</h3><p style="margin:0;color:var(--muted);font-size:14px">A lightweight L1/L2 cell-switch command (with TA) triggers the switch — no full RRC reconfiguration → ~20–30 ms.</p></div>
+  </div>
+  <p>Because candidates are pre-prepared and timing is pre-acquired, LTM removes the heavy reconfiguration and random-access delay of L3 handover. <b>Where AI enters:</b> selecting/ranking candidate cells and predicting the optimal switch instant — the "when/where," which LTM itself leaves to network implementation. <sup><a href="#refs">[3]</a></sup></p>
+
+  <h3>4.2 Prediction-based mobility (the "AI" in AI handover)</h3>
+  <table>
+    <thead><tr><th>Approach</th><th>What is predicted</th><th>Typical model</th><th>Benefit</th></tr></thead>
+    <tbody>
+      <tr><td><b>Measurement / signal prediction</b></td><td>Future RSRP/SINR of serving &amp; neighbor cells/beams</td><td>LSTM / GRU, temporal CNN</td><td>Earlier, better-timed triggers; fewer late-HO failures</td></tr>
+      <tr><td><b>Trajectory / mobility prediction</b></td><td>UE position &amp; velocity path</td><td>Sequence models, Kalman+ML</td><td>Proactive target selection, ping-pong avoidance</td></tr>
+      <tr><td><b>Beam prediction</b> (mmWave)</td><td>Best beam pair in time/space</td><td>DL classifiers (RAN1 use case)</td><td>Reduced beam-measurement overhead &amp; failures</td></tr>
+      <tr><td><b>Prediction-based CHO</b></td><td>Whether/when CHO condition will hold</td><td>Deep learning on measurement history</td><td>Robust mmWave handover with fewer failures <sup><a href="#refs">[15]</a></sup></td></tr>
+    </tbody>
+  </table>
+
+  <h3>4.3 Learning-based control (reinforcement learning)</h3>
+  <p>Rather than predicting and then applying fixed rules, RL directly learns a handover <i>policy</i> — mapping observed radio/mobility/load state to handover actions, optimizing a reward that balances throughput, failures, and ping-pong. Common formulations use <b>Deep Q-Networks (DQN/DDQN)</b> and <b>policy-gradient / DDPG</b> for continuous parameter tuning (hysteresis, time-to-trigger). Digital-twin and LSTM-aided variants are used to safely pre-train agents before live deployment. <sup><a href="#refs">[9][10][11][13]</a></sup></p>
+
+  <div class="callout amber">
+    <b>UE-side vs. network-side inference.</b> A recurring architectural choice (visible in both research and patents): run the ML model in the <b>UE</b> (which then suggests a target via an enhanced measurement report / new event) or in the <b>base station</b> (which infers from UE-provided assistance info such as velocity, location, trajectory). Federated learning is proposed to train UE-side models without centralizing raw data. <sup><a href="#refs">[18][20]</a></sup>
+  </div>
+</section>
+
+<!-- ============ VENDORS ============ -->
+<section id="vendors">
+  <h2><span class="num">05</span> Vendor &amp; Operator Progress</h2>
+  <p class="lead">2025–2026 saw AI-RAN move from lab to live commercial trials. Handover-specific AI is mostly embedded within broader "AI-native RAN" and mobility portfolios. Each vendor below is treated separately, with its own source links at the end of the subsection. No major vendor sells a standalone "AI handover" product; handover intelligence is bundled into (a) LTM/mobility features in 5G-Advanced software and (b) AI-RAN / RIC automation platforms.</p>
+
+  <div class="callout"><b>How to read "handover relevance."</b> Some items below are <i>direct</i> (LTM, mobility optimization, beam-tracking for mobility). Others are <i>adjacent</i> — AI-RAN substrates (real-time neural inference, intelligent beam steering, autonomous-network engines) that AI handover decisions run on top of. Both are flagged honestly per vendor.</div>
+
+  <!-- 5.1 Ericsson -->
+  <div class="card">
+    <h3 style="margin-top:0">5.1 &nbsp;Ericsson <span class="tag b">Sweden</span> <span class="tag g">Direct</span></h3>
+    <p>Ericsson leads <b>LTM</b> standardization and frames the roadmap as "zero-latency handovers on the path to 6G," where AI anticipates a user's movement to hand over <i>before</i> signal degradation. It has launched an <b>AI-native / AI-first RAN</b> portfolio (2025–2026) and applies reinforcement learning to RAN algorithms (e.g., AI-based antenna tilting). With <b>T-Mobile US</b> it ran a <b>world-first large-scale commercial trial</b> of an AI-native Scheduler with Link Adaptation on live 5G-Advanced traffic (May 2026): ~10% spectral-efficiency and up to 15% downlink-throughput gains — the real-time-inference substrate future AI handover will use.</p>
+    <p class="refmeta"><b>Sources:</b>
+      <a href="https://www.ericsson.com/en/blog/2024/8/5g-advanced-handover-triggered-mobility" target="_blank">5G-Advanced handover: LTM</a> ·
+      <a href="https://www.ericsson.com/en/blog/2025/12/one-step-closer-to-zero-latency-handovers-on-the-path-to-6g" target="_blank">Toward zero-latency handovers (Dec 2025)</a> ·
+      <a href="https://www.ericsson.com/en/reports-and-papers/ericsson-technology-review/articles/enhancing-ran-performance-with-ai" target="_blank">Leveraging AI for RAN optimization</a> ·
+      <a href="https://www.ericsson.com/en/news/2026/6/the-ran-gets-smarter-ericsson-puts-ai-where-it-matters" target="_blank">The RAN gets smarter (Jun 2026)</a> ·
+      <a href="https://www.ericsson.com/en/press-releases/6/2026/t-mobile-ericsson-ai-ran" target="_blank">T-Mobile + Ericsson AI-RAN world-first (May 2026)</a>
+    </p>
+  </div>
+
+  <!-- 5.2 Nokia -->
+  <div class="card">
+    <h3 style="margin-top:0">5.2 &nbsp;Nokia <span class="tag b">Finland</span> <span class="tag o">Adjacent</span></h3>
+    <p>Nokia is pursuing a distinct AI-RAN strategy (notably diverging from Ericsson's), centered on RAN automation and applying AI to mobility robustness, parameter optimization, and energy efficiency rather than a single named handover product. Its mobility intelligence surfaces through self-organizing/automation tooling and O-RAN-aligned RIC apps.</p>
+    <p class="refmeta"><b>Sources:</b>
+      <a href="https://www.lightreading.com/5g/ericsson-and-nokia-are-diverging-like-never-before-on-ai-ran" target="_blank">Light Reading — Ericsson &amp; Nokia diverging on AI-RAN</a> ·
+      <a href="https://telecomlead.com/telecom-equipment/ericsson-unveils-ai-first-ran-portfolio-as-rivals-huawei-and-nokia-gain-share-in-2025-124652" target="_blank">TelecomLead — AI-first RAN &amp; vendor share 2025</a>
+    </p>
+  </div>
+
+  <!-- 5.3 Huawei -->
+  <div class="card">
+    <h3 style="margin-top:0">5.3 &nbsp;Huawei <span class="tag b">China</span> <span class="tag g">Direct</span></h3>
+    <p>At MWC 2025 (Mar 2025) Huawei launched <b>AI-centric 5.5G (5G-Advanced / 5G-A)</b> solutions to "ignite the mobile AI era," including intent-driven products <b>GigaGear</b> (multi-domain — time/frequency/space/power — resource scheduling for diverse users and AI scenarios), <b>GreenPulse</b> (multi-agent energy/spectral efficiency), and <b>GainLeap</b> built on the <b>RAN Intelligent Service Engine (RISE)</b>. Huawei is driving <b>Autonomous Network L3 → L4+</b> and is the largest 5G standard-essential-patent holder. With <b>China Mobile</b> it built a wireless autonomous network whose "Eyes/Brain/Hands" architecture <b>automatically steers antenna beams toward congested areas</b> — direct mobility/coverage optimization (see §5.7 for measured results).</p>
+    <p class="refmeta"><b>Sources:</b>
+      <a href="https://www.huawei.com/en/news/2025/3/ai-centric-mobile" target="_blank">Huawei — AI-Centric 5.5G Solutions (Mar 2025)</a> ·
+      <a href="https://www.huawei.com/en/news/2025/3/mwc-mobile-ai" target="_blank">Huawei — 5G-A + AI at MWC</a> ·
+      <a href="https://www.huawei.com/en/news/2025/6/mwcsh-intelligent-world" target="_blank">Huawei — 5G-A &amp; scenario-based AI (Jun 2025)</a> ·
+      <a href="https://www.rcrwireless.com/20251009/5g/huawei-ai-5g-a" target="_blank">RCR Wireless — Huawei on 5G-A &amp; AI</a> ·
+      <a href="https://techblog.comsoc.org/2026/01/30/huawei-qualcomm-samsung-and-ericsson-leading-patent-race-in-15-billion-5g-licensing-market/" target="_blank">IEEE ComSoc — 5G SEP race</a>
+    </p>
+  </div>
+
+  <!-- 5.4 ZTE -->
+  <div class="card">
+    <h3 style="margin-top:0">5.4 &nbsp;ZTE <span class="tag b">China</span> <span class="tag g">Direct</span></h3>
+    <p>At MWC Shanghai 2025 (Jun 2025) ZTE unveiled <b>AIR RAN</b> — legacy RAN deeply integrated with AI via the BBU-embedded <b>AIREngine</b> computing board — plus a <b>Smart Beam-Tracking Unit</b> and M-MIMO with <b>adaptive beam adjustment</b> raising capacity up to 20% (both directly relevant to mobility and beam handover). Its <b>uSmartNet</b> autonomous-network platform underpins deployments such as an AIS (Thailand) build. ZTE also markets AIR RAN / AgentGuard for the mobile-AI era and an AI-driven 5G service platform.</p>
+    <p class="refmeta"><b>Sources:</b>
+      <a href="https://www.zte.com.cn/global/about/news/zte-showcases-innovative-radio-access-network-solutions-to-advance-5g-deployment-and-accelerate-intelligent-connectivity-at-mwc-shanghai-2025.html" target="_blank">ZTE — RAN solutions at MWC Shanghai 2025</a> ·
+      <a href="https://www.rcrwireless.com/20250714/5g/zte-air-ran" target="_blank">RCR Wireless — ZTE AIR RAN &amp; AgentGuard</a> ·
+      <a href="https://www.zte.com.cn/global/about/news/ais-and-zte-to-jointly-build-autonomous-network-with-usmartnet-i.html" target="_blank">ZTE — AIS + uSmartNet autonomous network</a> ·
+      <a href="https://techblog.comsoc.org/2025/06/20/ztes-ai-infrastructure-and-ai-powered-terminals-revealed-at-mwc-shanghai/" target="_blank">IEEE ComSoc — ZTE AI infrastructure</a>
+    </p>
+  </div>
+
+  <!-- 5.5 Samsung -->
+  <div class="card">
+    <h3 style="margin-top:0">5.5 &nbsp;Samsung <span class="tag b">South Korea</span> <span class="tag g">Direct</span></h3>
+    <p>Samsung is active in 3GPP AI/ML-for-RAN ("First Light of the AI/ML-Empowered RAN") and is the most prolific filer of explicit AI-handover patents, covering UE-side and base-station-side inference, ML-based measurement triggers (e.g., "Event A7"), and model life-cycle management (see §8).</p>
+    <p class="refmeta"><b>Sources:</b>
+      <a href="https://research.samsung.com/blog/First-Light-of-the-AI-ML-Empowered-RAN-in-3GPP" target="_blank">Samsung Research — AI/ML-Empowered RAN in 3GPP</a> ·
+      <a href="https://patents.google.com/patent/US20250168716A1/en" target="_blank">US20250168716A1 — AI-based handover</a> ·
+      <a href="https://patents.google.com/patent/US20220286927A1/en" target="_blank">US20220286927A1 — ML handover management</a>
+    </p>
+  </div>
+
+  <!-- 5.6 Qualcomm & MediaTek -->
+  <div class="card">
+    <h3 style="margin-top:0">5.6 &nbsp;Qualcomm &amp; MediaTek <span class="tag b">USA / Taiwan</span> <span class="tag o">Adjacent</span></h3>
+    <p>The leading modem vendors focus on <b>device-side (UE) AI</b>: on-device inference for beam and channel prediction and chipset support for the ML models a UE-side handover decision would run. Qualcomm is also a top-tier 5G SEP holder, giving it strong influence over AI/ML air-interface features that mobility relies on.</p>
+    <p class="refmeta"><b>Sources:</b>
+      <a href="https://techblog.comsoc.org/2026/01/30/huawei-qualcomm-samsung-and-ericsson-leading-patent-race-in-15-billion-5g-licensing-market/" target="_blank">IEEE ComSoc — 5G SEP race (Qualcomm leadership)</a> ·
+      <a href="https://arxiv.org/pdf/2309.10575" target="_blank">AI/ML for Beam Management in 5G-Advanced (standardization perspective)</a>
+    </p>
+  </div>
+
+  <!-- 5.7 China Mobile -->
+  <div class="card">
+    <h3 style="margin-top:0">5.7 &nbsp;China Mobile <span class="tag b">China · Operator</span> <span class="tag g">Direct</span></h3>
+    <p>China Mobile is pushing an <b>"AI+Network"</b> strategy toward <b>L4 autonomous networks</b> (unveiled at MWC 2025), partnering with Huawei on a wireless autonomous network. Its "Eyes/Brain/Hands" system detects traffic congestion and <b>automatically adjusts antenna beam points toward congested areas</b> — proactive RAN/mobility optimization. Measured results in the Liaoning subnet include VIP-complaint resolution cut from 2 days to 1.5 hours, first-call resolution up from 80% to 96%, 40% less on-site maintenance, 30% lower O&amp;M cost, and for users 45% lower gaming latency / 50% faster uploads. China Mobile is also a leading force in China's 5G-Advanced rollout that is staged as the on-ramp to AI-native 6G.</p>
+    <p class="refmeta"><b>Sources:</b>
+      <a href="https://www.telecoms.com/partner-content/china-mobile-accelerates-toward-ai-powered-l4-autonomous-network" target="_blank">Telecoms.com — China Mobile toward AI-powered L4 autonomous network</a> ·
+      <a href="https://www.telecomstechnews.com/news/china-5g-advanced-ai-native-6g/" target="_blank">Telecoms Tech News — China 5G-Advanced &amp; AI-native 6G</a> ·
+      <a href="http://en.sasac.gov.cn/2025/12/18/c_20211.htm" target="_blank">SASAC — China Mobile breakthroughs (14th Five-Year Plan)</a>
+    </p>
+  </div>
+
+  <!-- 5.8 China Telecom -->
+  <div class="card">
+    <h3 style="margin-top:0">5.8 &nbsp;China Telecom (with ZTE) <span class="tag b">China · Operator</span> <span class="tag g">Direct (vehicular mobility)</span></h3>
+    <p>China Telecom and ZTE built a "Factory-to-User" 5G-Advanced solution for intelligent connected vehicles featuring <b>intelligent dynamic scheduling</b> that senses traffic-demand changes, and the "industry's first nationwide multi-DNN customized private network + LBO routing" — a wide-area mobility architecture where ~26.7% of in-vehicle traffic breaks out locally to cut latency for intelligent driving. The platform spans 31 provinces and ~1.4 million vehicle accesses (200 vehicles OTA-updated concurrently within 1 hour).</p>
+    <p class="refmeta"><b>Sources:</b>
+      <a href="https://www.theregister.com/2025/11/28/zte-5g-intelligent-vehicle/" target="_blank">The Register — 5G intelligent mobility by China Telecom &amp; ZTE (Nov 2025)</a> ·
+      <a href="https://www.zte.com.cn/global/about/news/zte-showcases-innovative-radio-access-network-solutions-to-advance-5g-deployment-and-accelerate-intelligent-connectivity-at-mwc-shanghai-2025.html" target="_blank">ZTE — intelligent connectivity RAN solutions</a>
+    </p>
+  </div>
+
+  <!-- 5.9 NVIDIA / AI-RAN Alliance -->
+  <div class="card">
+    <h3 style="margin-top:0">5.9 &nbsp;NVIDIA &amp; the AI-RAN Alliance <span class="tag b">Ecosystem</span> <span class="tag o">Adjacent (platform)</span></h3>
+    <p>NVIDIA and the AI-RAN Alliance provide the compute platform and 6G AI-native agenda (aligned with 3GPP and O-RAN) on which mobility/handover ML models are trained and executed — the enabling infrastructure rather than a handover feature itself.</p>
+    <p class="refmeta"><b>Sources:</b>
+      <a href="https://developer.nvidia.com/blog/boosting-ai-driven-innovation-in-6g-with-the-ai-ran-alliance-3gpp-and-o-ran/" target="_blank">NVIDIA — Boosting AI-driven innovation in 6G with the AI-RAN Alliance, 3GPP &amp; O-RAN</a>
+    </p>
+  </div>
+
+  <div class="callout teal">
+    <b>China vendor snapshot.</b> The Chinese ecosystem frames AI handover inside <b>autonomous networks (L4)</b> and <b>5.5G / 5G-A</b>: Huawei (GigaGear/RISE + beam steering with China Mobile), ZTE (AIR RAN + Smart Beam-Tracking + uSmartNet), and operators China Mobile ("AI+Network", beam-to-congestion) and China Telecom (vehicular intelligent mobility). The most handover-direct capabilities are AI-driven <b>beam tracking/steering</b> and <b>intelligent mobility for high-speed vehicles</b>; much of the rest is autonomous-network optimization that mobility management sits within.
+  </div>
+</section>
+
+<!-- ============ PERFORMANCE ============ -->
+<section id="performance">
+  <h2><span class="num">06</span> Implementation &amp; Performance Evidence</h2>
+  <p class="lead">Numbers below combine standardized LTM figures, published RL/DL results (mostly simulation), and one live commercial AI-RAN trial. Read simulation results as directional, not deployment guarantees.</p>
+
+  <div class="card">
+    <h3 style="margin-top:0">Handover interruption time by mechanism</h3>
+    <div class="bars">
+      <div class="bar-row"><span class="bar-lbl">Legacy L3 HO</span><div class="bar-track"><div class="bar-fill" style="width:100%;background:linear-gradient(90deg,#e26d8e,#f4a63b)"></div></div><span class="bar-val">50–90 ms</span></div>
+      <div class="bar-row"><span class="bar-lbl">LTM (Rel-18)</span><div class="bar-track"><div class="bar-fill" style="width:30%;background:linear-gradient(90deg,#5b8cff,#42d4b5)"></div></div><span class="bar-val">20–30 ms</span></div>
+      <div class="bar-row"><span class="bar-lbl">DAPS / target 6G</span><div class="bar-track"><div class="bar-fill" style="width:6%;background:var(--accent2)"></div></div><span class="bar-val">~0 ms</span></div>
+    </div>
+    <div class="legend"><span>Relative bar width ∝ interruption time. Source: <a href="#refs">[1][3]</a></span></div>
+  </div>
+
+  <div class="grid g2">
+    <div class="card"><h3 style="margin-top:0">RL handover for 5G/6G AI-RAN (DDQN)</h3>
+      <p style="color:var(--muted);font-size:14px;margin-top:0">ns-3 simulation, specialized RL agents per mobility pattern <sup><a href="#refs">[9]</a></sup>:</p>
+      <table>
+        <thead><tr><th>Metric</th><th>Baseline</th><th>RL</th></tr></thead>
+        <tbody>
+          <tr><td>Handovers (Sc.3)</td><td>~40</td><td><b>1–2</b></td></tr>
+          <tr><td>Ping-pong rate</td><td>86–100%</td><td><b>0–33%</b></td></tr>
+          <tr><td>Data rate (Sc.3)</td><td>7.5 Mbps</td><td><b>18 Mbps</b></td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:0">Reported: &gt;4× fewer handovers on average; up to 2× data rate in best case.</p>
+    </div>
+    <div class="card"><h3 style="margin-top:0">Live AI-RAN trial (T-Mobile + Ericsson)</h3>
+      <p style="color:var(--muted);font-size:14px;margin-top:0">AI-native Scheduler w/ Link Adaptation, live 5G-Advanced traffic, May 2026 <sup><a href="#refs">[21]</a></sup>:</p>
+      <div class="grid g2" style="gap:10px">
+        <div class="stat" style="padding:14px"><div class="big tealed" style="font-size:26px">~10%</div><div class="lbl">Spectral efficiency gain</div></div>
+        <div class="stat" style="padding:14px"><div class="big" style="font-size:26px">≤15%</div><div class="lbl">Downlink throughput boost</div></div>
+      </div>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:0">Not a handover metric per se, but the first proof of real-time neural inference in a live commercial RAN — the substrate AI handover needs.</p>
+    </div>
+  </div>
+
+  <div class="card"><h3 style="margin-top:0">Other reported results across the literature</h3>
+    <ul class="clean">
+      <li><b>Deep RL parameter optimization (DDPG):</b> autonomous tuning of hysteresis/TTT reduces handover failures and ping-pong vs. fixed 3GPP settings across varied speeds. <sup><a href="#refs">[11]</a></sup></li>
+      <li><b>LSTM-aided digital-twin RL (UDN):</b> safe offline pre-training then online adaptation improves handover parameter adaptation in ultra-dense networks. <sup><a href="#refs">[10]</a></sup></li>
+      <li><b>Prediction-based CHO for mmWave (deep learning):</b> anticipating link quality reduces handover failures in volatile mmWave links. <sup><a href="#refs">[15]</a></sup></li>
+      <li><b>AI/ML beam management (RAN1 evaluations):</b> temporal/spatial beam prediction cuts measurement overhead while maintaining beam quality — foundational for high-frequency mobility. <sup><a href="#refs">[12]</a></sup></li>
+    </ul>
+  </div>
+
+  <div class="callout amber"><b>Caveat.</b> Most quantitative AI-handover gains come from simulation (ns-3, system-level) under specific scenarios; absolute numbers vary with mobility model, density, and reward design. Standardized LTM interruption figures and the T-Mobile/Ericsson trial gains are the most deployment-grounded data points here.</div>
+</section>
+
+<!-- ============ PAPERS ============ -->
+<section id="papers">
+  <h2><span class="num">07</span> Academic Literature</h2>
+  <p class="lead">A rich and fast-growing body of work — several 2024–2026 surveys plus primary papers on RL/DL handover and standardization analysis.</p>
+
+  <h3>Surveys &amp; systematic reviews</h3>
+  <table>
+    <thead><tr><th>Title</th><th>Venue / year</th><th>Focus</th></tr></thead>
+    <tbody>
+      <tr><td>A Comprehensive Survey on ML Methods for Handover Optimization in 5G Networks <sup><a href="#refs">[8]</a></sup></td><td>MDPI Electronics, 2024</td><td>Taxonomy of ML methods for handover</td></tr>
+      <tr><td>A survey on AI-enabled mobility &amp; handover management in future wireless networks <sup><a href="#refs">[23]</a></sup></td><td>J. King Saud Univ. (Springer), 2025</td><td>Key tech, use cases, challenges</td></tr>
+      <tr><td>Reactive to Predictive Mobility Management: A Systematic Review of ML-Driven Handover Optimization in 5G and Beyond <sup><a href="#refs">[24]</a></sup></td><td>MDPI MAKE, 2025</td><td>Shift from reactive to predictive HO</td></tr>
+      <tr><td>On L1/L2-Triggered Mobility in 3GPP Release 18 and Beyond <sup><a href="#refs">[25]</a></sup></td><td>IEEE (Xplore), 2024</td><td>Authoritative LTM analysis</td></tr>
+      <tr><td>AI/ML-Driven Predictive Mobility Management in 3GPP: Technical Insights &amp; Standardization Trends <sup><a href="#refs">[26]</a></sup></td><td>IEEE Conf., 2025/26</td><td>Standards-aligned predictive mobility</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Representative primary papers</h3>
+  <table>
+    <thead><tr><th>Title</th><th>Method / contribution</th></tr></thead>
+    <tbody>
+      <tr><td>Reinforcement Learning-Based Handover Algorithm for 5G/6G AI-RAN <sup><a href="#refs">[9]</a></sup></td><td>DDQN with per-mobility-pattern agents; &gt;4× fewer HO (ns-3)</td></tr>
+      <tr><td>Autonomous handover parameter optimisation using DDPG <sup><a href="#refs">[11]</a></sup></td><td>Continuous-control RL tuning of hysteresis/TTT</td></tr>
+      <tr><td>RL handover parameter adaptation based on LSTM-aided digital twin (UDN) <sup><a href="#refs">[10]</a></sup></td><td>Digital-twin safe pre-training + online RL</td></tr>
+      <tr><td>Prediction-Based Conditional Handover for 5G mm-Wave: a deep-learning approach <sup><a href="#refs">[15]</a></sup></td><td>DL predicts CHO condition to cut mmWave failures</td></tr>
+      <tr><td>Intelligent Dynamic Handover via AI-assisted Signal prediction <sup><a href="#refs">[27]</a></sup></td><td>2025 arXiv; signal-prediction-driven handover</td></tr>
+      <tr><td>Enabling AI-Native Mobility in 6G: real-world dataset for handover, beam mgmt, timing advance <sup><a href="#refs">[28]</a></sup></td><td>Open dataset to train/benchmark 6G mobility ML</td></tr>
+      <tr><td>5G Handover using Reinforcement Learning <sup><a href="#refs">[13]</a></sup></td><td>Early influential RL-handover formulation (arXiv)</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ============ PATENTS ============ -->
+<section id="patents">
+  <h2><span class="num">08</span> Patent Landscape</h2>
+  <p class="lead">AI/ML-for-handover is an active filing area. Samsung is notably prolific with explicit AI-handover claims; Huawei, Qualcomm, and Ericsson dominate the broader 5G SEP race that these build upon.</p>
+
+  <table>
+    <thead><tr><th>Publication</th><th>Assignee</th><th>Dates</th><th>Core claim</th></tr></thead>
+    <tbody>
+      <tr><td><b>US20250168716A1</b> — AI-based handover procedure <sup><a href="#refs">[20]</a></sup></td><td>Samsung</td><td>Filed Nov 2024; pub. May 2025</td><td>UE-side <i>and</i> BS-side AI models predict optimal handover timing/target; enhanced measurement report suggests target; ML life-cycle management on HO success.</td></tr>
+      <tr><td><b>US20220286927A1</b> — ML/AI support for handover management <sup><a href="#refs">[18]</a></sup></td><td>Samsung</td><td>Priority Mar 2021; pub. Sep 2022 <span class="tag">abandoned</span></td><td>New <b>Event A7</b> (ML-inference trigger); UE-side federated model or BS-side inference from UE assistance (velocity, location, trajectory); RRC signaling of ML params.</td></tr>
+      <tr><td><b>US20220294666A1</b> — AI/ML for channel estimation &amp; mobility enhancements <sup><a href="#refs">[29]</a></sup></td><td>Samsung</td><td>Filed Mar 2022; pub. Sep 2022</td><td>ML for UL channel prediction, DL channel estimation, and <b>ML-assisted cell (re)selection / handover</b>; bidirectional config + federated updates.</td></tr>
+      <tr><td><b>US20250301373A1</b> — performing conditional handover <sup><a href="#refs">[30]</a></sup></td><td>(see record)</td><td>2025</td><td>Conditional-handover execution enhancements (CHO/CLTM family).</td></tr>
+      <tr><td><b>WO2024010399A1</b> — AI/ML model management &amp;/or training <sup><a href="#refs">[31]</a></sup></td><td>(see record)</td><td>2024</td><td>Model management/training framework applicable to RAN mobility inference.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="grid g2">
+    <div class="card"><h3 style="margin-top:0">Common claimed techniques</h3>
+      <ul class="clean">
+        <li>New ML-inference-based measurement events replacing static thresholds (e.g., "Event A7").</li>
+        <li>UE-side vs. network-side inference split; UE assistance info (velocity, location, trajectory).</li>
+        <li>RRC/MAC signaling to configure, enable/disable, and update ML models.</li>
+        <li>Federated learning &amp; model life-cycle management (monitoring, retraining on HO outcomes).</li>
+      </ul>
+    </div>
+    <div class="card"><h3 style="margin-top:0">Broader 5G SEP context</h3>
+      <p style="margin-top:0">In the ~$15B 5G licensing market, <b>Huawei, Qualcomm, Samsung, and Ericsson</b> lead the standard-essential-patent race — the same firms shaping 3GPP AI/ML mobility work, so their SEP portfolios increasingly encompass AI-native RAN features that handover intelligence relies on. <sup><a href="#refs">[22]</a></sup></p>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:0">Note: patent <i>filing</i> ≠ deployment; several explicit AI-handover applications are pending or (in one case above) abandoned. Treat as a signal of R&amp;D direction.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ OUTLOOK ============ -->
+<section id="outlook">
+  <h2><span class="num">09</span> Outlook &amp; Open Challenges</h2>
+  <div class="grid g2">
+    <div class="card"><h3 style="margin-top:0">Where it's heading</h3>
+      <ul class="clean">
+        <li><b>Convergence of LTM + AI:</b> LTM provides near-zero interruption; AI provides the predictive "when/where." Together → "invisible," proactive handover in 6G.</li>
+        <li><b>AI-native RAN:</b> real-time inference in the RAN (proven at commercial scale in 2026) becomes the platform for per-UE handover control.</li>
+        <li><b>Cross-domain mobility:</b> unified handover across terrestrial &amp; non-terrestrial (satellite) networks.</li>
+        <li><b>Standardized model life-cycle:</b> 3GPP/O-RAN converging on data collection, training, inference, and monitoring interfaces.</li>
+      </ul>
+    </div>
+    <div class="card"><h3 style="margin-top:0">Open challenges</h3>
+      <ul class="clean">
+        <li><b>Generalization:</b> models trained in one deployment/mobility regime may not transfer; real-world datasets (e.g., <a href="#refs">[28]</a>) are scarce.</li>
+        <li><b>Explainability &amp; safety:</b> RL policies must avoid catastrophic handover failures; digital-twin pre-training helps.</li>
+        <li><b>UE energy &amp; compute</b> for on-device inference; signaling overhead of ML config.</li>
+        <li><b>Interoperability:</b> multi-vendor model exchange, and privacy for UE trajectory data (→ federated learning).</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ REFERENCES ============ -->
+<section id="refs">
+  <h2><span class="num">10</span> References &amp; Source Links</h2>
+  <p class="lead">All links verified reachable at compilation (July 2026). Vendor/press items and academic papers are cited inline above by number.</p>
+  <ol class="refs">
+    <li><div><a href="https://www.ericsson.com/en/blog/2024/8/5g-advanced-handover-triggered-mobility" target="_blank">Ericsson — 5G-Advanced handover: L1/L2 Triggered mobility</a><div class="refmeta">Ericsson blog, 2024 — LTM phases &amp; ~20–30 ms vs. up to 90 ms interruption.</div></div></li>
+    <li><div><a href="https://www.3gpp.org/technologies/ai-ml-ngran" target="_blank">3GPP — AI/ML for NG-RAN &amp; 5G-Advanced towards 6G</a><div class="refmeta">3GPP technology page — TR 37.817 framework; mobility, load balancing, energy saving; Rel-18/19.</div></div></li>
+    <li><div><a href="https://www.ericsson.com/en/blog/2025/12/one-step-closer-to-zero-latency-handovers-on-the-path-to-6g" target="_blank">Ericsson — Toward zero-latency handovers: LTM in 5G and 6G</a><div class="refmeta">Ericsson blog, Dec 2025 — inter-gNB LTM, Conditional LTM, L1 measurement enhancements, AI prediction outlook.</div></div></li>
+    <li><div><a href="https://www.ericsson.com/en/reports-and-papers/ericsson-technology-review/articles/reducing-handover-interruption-l1l2-triggered-mobility" target="_blank">Ericsson Technology Review — Reducing handover interruption with L1/L2-triggered mobility</a><div class="refmeta">Detailed LTM technical article.</div></div></li>
+    <li><div><a href="https://www.3gpp.org/technologies/ran-rel-19" target="_blank">3GPP — RAN Rel-19 Status and a Look Beyond</a><div class="refmeta">Rel-19 scope incl. LTM enhancements &amp; AI/ML.</div></div></li>
+    <li><div><a href="https://research.samsung.com/blog/First-Light-of-the-AI-ML-Empowered-RAN-in-3GPP" target="_blank">Samsung Research — First Light of the AI/ML-Empowered RAN in 3GPP</a><div class="refmeta">Overview of AI/ML RAN use cases incl. mobility.</div></div></li>
+    <li><div><a href="https://www.ericsson.com/en/news/2026/6/the-ran-gets-smarter-ericsson-puts-ai-where-it-matters" target="_blank">Ericsson — The RAN gets smarter: Ericsson puts AI where it matters</a><div class="refmeta">Ericsson news, Jun 2026 — AI-native RAN portfolio.</div></div></li>
+    <li><div><a href="https://www.mdpi.com/2079-9292/13/16/3223" target="_blank">A Comprehensive Survey on ML Methods for Handover Optimization in 5G Networks</a><div class="refmeta">MDPI Electronics 13(16):3223, 2024. DOI: 10.3390/electronics13163223.</div></div></li>
+    <li><div><a href="https://www.mdpi.com/2411-5134/11/1/8" target="_blank">Reinforcement Learning-Based Handover Algorithm for 5G/6G AI-RAN</a><div class="refmeta">MDPI Inventions 11(1):8 — DDQN, &gt;4× HO reduction, ns-3.</div></div></li>
+    <li><div><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9960529/" target="_blank">RL Handover Parameter Adaptation Based on LSTM-Aided Digital Twin for UDN</a><div class="refmeta">Sensors / PMC9960529.</div></div></li>
+    <li><div><a href="https://www.sciencedirect.com/science/article/pii/S0957417423033730" target="_blank">Autonomous handover parameter optimisation for 5G using DDPG</a><div class="refmeta">Expert Systems with Applications (Elsevier), 2023.</div></div></li>
+    <li><div><a href="https://arxiv.org/pdf/2404.15326" target="_blank">5G-Advanced AI/ML Beam Management: Performance Evaluation with Integrated ML Models</a><div class="refmeta">arXiv:2404.15326.</div></div></li>
+    <li><div><a href="https://arxiv.org/pdf/1904.02572" target="_blank">5G Handover using Reinforcement Learning</a><div class="refmeta">arXiv:1904.02572 — early influential RL-handover paper.</div></div></li>
+    <li><div><a href="https://developer.nvidia.com/blog/boosting-ai-driven-innovation-in-6g-with-the-ai-ran-alliance-3gpp-and-o-ran/" target="_blank">NVIDIA — Boosting AI-Driven Innovation in 6G with the AI-RAN Alliance, 3GPP, and O-RAN</a><div class="refmeta">NVIDIA technical blog.</div></div></li>
+    <li><div><a href="https://www.researchgate.net/publication/338591632_Prediction-Based_Conditional_Handover_for_5G_mm-Wave_Networks_A_Deep-Learning_Approach" target="_blank">Prediction-Based Conditional Handover for 5G mm-Wave Networks: A Deep-Learning Approach</a><div class="refmeta">IEEE, deep learning for CHO.</div></div></li>
+    <li><div><a href="https://arxiv.org/abs/2603.17158" target="_blank">AI-Driven Multi-Modal Adaptive Handover Control Optimization for O-RAN</a><div class="refmeta">arXiv:2603.17158 — O-RAN handover control.</div></div></li>
+    <li><div><a href="https://rimedolabs.com/blog/ran-intelligent-controller-ric-overview-xapps-and-rapps/" target="_blank">RAN Intelligent Controller (RIC): Overview, xApps, and rApps</a><div class="refmeta">Rimedo Labs — where AI mobility apps run in O-RAN.</div></div></li>
+    <li><div><a href="https://patents.google.com/patent/US20220286927A1/en" target="_blank">US20220286927A1 — ML/AI support for handover management (Samsung)</a><div class="refmeta">Event A7; UE/BS inference; priority Mar 2021.</div></div></li>
+    <li><div><a href="https://www.lightreading.com/5g/ericsson-and-nokia-are-diverging-like-never-before-on-ai-ran" target="_blank">Light Reading — Ericsson and Nokia diverging on AI-RAN</a><div class="refmeta">Vendor strategy context.</div></div></li>
+    <li><div><a href="https://patents.google.com/patent/US20250168716A1/en" target="_blank">US20250168716A1 — Method and system for AI-based handover procedure (Samsung)</a><div class="refmeta">UE- &amp; BS-side AI models; filed Nov 2024, pub. May 2025.</div></div></li>
+    <li><div><a href="https://www.ericsson.com/en/press-releases/6/2026/t-mobile-ericsson-ai-ran" target="_blank">Ericsson press release — T-Mobile 5G-Advanced world-first AI-RAN innovation</a><div class="refmeta">May 2026 — AI-native Scheduler; ~10% spectral efficiency, ≤15% DL throughput.</div></div></li>
+    <li><div><a href="https://techblog.comsoc.org/2026/01/30/huawei-qualcomm-samsung-and-ericsson-leading-patent-race-in-15-billion-5g-licensing-market/" target="_blank">IEEE ComSoc — Huawei, Qualcomm, Samsung, Ericsson lead 5G SEP race</a><div class="refmeta">$15B 5G licensing market, Jan 2026.</div></div></li>
+    <li><div><a href="https://link.springer.com/article/10.1007/s44443-025-00048-9" target="_blank">A survey on AI-enabled mobility and handover management in future wireless networks</a><div class="refmeta">J. King Saud Univ. Comp. &amp; Info. Sci. (Springer), 2025.</div></div></li>
+    <li><div><a href="https://doi.org/10.3390/make8050133" target="_blank">Reactive to Predictive Mobility Management: A Systematic Review of ML-Driven Handover Optimization in 5G and Beyond</a><div class="refmeta">MDPI MAKE 8(5):133, 2025.</div></div></li>
+    <li><div><a href="https://ieeexplore.ieee.org/document/10744020/" target="_blank">On L1/L2-Triggered Mobility in 3GPP Release 18 and Beyond</a><div class="refmeta">IEEE Xplore, 2024.</div></div></li>
+    <li><div><a href="https://ieeexplore.ieee.org/document/11388879/" target="_blank">AI/ML-Driven Predictive Mobility Management in 3GPP: Technical Insights and Standardization Trends</a><div class="refmeta">IEEE Xplore conference paper.</div></div></li>
+    <li><div><a href="https://www.arxiv.org/pdf/2510.14832" target="_blank">Intelligent Dynamic Handover via AI-assisted Signal Prediction</a><div class="refmeta">arXiv:2510.14832, 2025.</div></div></li>
+    <li><div><a href="https://arxiv.org/html/2605.12453v1" target="_blank">Enabling AI-Native Mobility in 6G: A Real-World Dataset for Handover, Beam Management, and Timing Advance</a><div class="refmeta">arXiv:2605.12453 — open 6G mobility dataset.</div></div></li>
+    <li><div><a href="https://patents.google.com/patent/US20220294666A1/en" target="_blank">US20220294666A1 — AI/ML for channel estimation and mobility enhancements (Samsung)</a><div class="refmeta">ML-assisted cell (re)selection / handover; 2022.</div></div></li>
+    <li><div><a href="https://patents.google.com/patent/US20250301373A1/en" target="_blank">US20250301373A1 — Method and apparatus for performing conditional handover</a><div class="refmeta">Google Patents, 2025.</div></div></li>
+    <li><div><a href="https://patents.google.com/patent/WO2024010399A1/en" target="_blank">WO2024010399A1 — AI/ML models management and/or training</a><div class="refmeta">Google Patents, 2024.</div></div></li>
+    <li><div><a href="https://www.huawei.com/en/news/2025/3/ai-centric-mobile" target="_blank">Huawei — AI-Centric 5.5G Solutions to Ignite the Mobile AI Era</a><div class="refmeta">Huawei news, Mar 2025 — GigaGear, GreenPulse, GainLeap / RISE; Autonomous Network L4+.</div></div></li>
+    <li><div><a href="https://www.huawei.com/en/news/2025/6/mwcsh-intelligent-world" target="_blank">Huawei — 5G-A Development &amp; Value of Scenario-based AI</a><div class="refmeta">Huawei news, MWC Shanghai, Jun 2025.</div></div></li>
+    <li><div><a href="https://www.zte.com.cn/global/about/news/zte-showcases-innovative-radio-access-network-solutions-to-advance-5g-deployment-and-accelerate-intelligent-connectivity-at-mwc-shanghai-2025.html" target="_blank">ZTE — RAN solutions at MWC Shanghai 2025 (AIR RAN, Smart Beam-Tracking)</a><div class="refmeta">ZTE news, Jun 2025 — AIREngine, adaptive beam adjustment (+20% capacity).</div></div></li>
+    <li><div><a href="https://www.rcrwireless.com/20250714/5g/zte-air-ran" target="_blank">RCR Wireless — ZTE's AIR RAN and AgentGuard</a><div class="refmeta">2025 — AI-RAN integration.</div></div></li>
+    <li><div><a href="https://www.zte.com.cn/global/about/news/ais-and-zte-to-jointly-build-autonomous-network-with-usmartnet-i.html" target="_blank">ZTE — AIS &amp; ZTE build autonomous network with uSmartNet</a><div class="refmeta">ZTE news — autonomous-network platform.</div></div></li>
+    <li><div><a href="https://www.telecoms.com/partner-content/china-mobile-accelerates-toward-ai-powered-l4-autonomous-network" target="_blank">Telecoms.com — China Mobile toward AI-powered L4 autonomous network</a><div class="refmeta">"AI+Network"; beam-to-congestion; Liaoning subnet results (with Huawei).</div></div></li>
+    <li><div><a href="https://www.theregister.com/2025/11/28/zte-5g-intelligent-vehicle/" target="_blank">The Register — 5G-powered intelligent mobility by China Telecom &amp; ZTE</a><div class="refmeta">Nov 2025 — vehicular intelligent mobility, multi-DNN + LBO, 31 provinces.</div></div></li>
+    <li><div><a href="https://www.telecomstechnews.com/news/china-5g-advanced-ai-native-6g/" target="_blank">Telecoms Tech News — China's 5G-Advanced rollout sets stage for AI-native 6G</a><div class="refmeta">Context on China operators' 5G-A → 6G path.</div></div></li>
+  </ol>
+</section>
+
+<div class="disclaimer">
+  <b>Methodology &amp; limitations.</b> This report synthesizes publicly available 3GPP/O-RAN materials, vendor communications, peer-reviewed &amp; preprint literature, and published patent records retrieved via web research in July 2026. Quantitative AI/ML gains are predominantly from simulation and are scenario-dependent; standardized LTM interruption figures and the single cited live commercial trial are the most deployment-grounded data points. Patent citations indicate R&amp;D direction, not products; at least one cited application is abandoned and others are pending. Spec/release details should be confirmed against the authoritative 3GPP specifications before use in engineering or IP decisions.
+</div>
+
+<footer>
+  <p><b>AI-Driven Handover in Mobile Networks</b> — research report compiled July 2026. Scope: cellular AI/ML handover (3GPP 5G-Advanced &amp; 6G, O-RAN). All statistics carry inline source references; see §10.</p>
+</footer>
+
+</div>
+</body>
+</html>
